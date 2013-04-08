@@ -1,0 +1,27 @@
+{{#each Categories}}
+    <section>
+        <header>
+            <h2>{{Name}}</h2>
+        </header>
+        <table class="metrics">
+            <thead>
+                <tr>
+                    {{#each Dimensions}}
+                        <th>{{this}}</th>
+                    {{/each}}
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each Metrics}}
+                    <tr>
+                        {{#each Dimensions}}
+                            <td>{{Value}}</td>
+                        {{/each}}
+                        <td>{{MetricName}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+{{/each}}

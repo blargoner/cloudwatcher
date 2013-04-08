@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>CloudWatcher Options</title>
+        
+        <link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts-base-min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/options.css" />
+        
+        <script src="../lib/jquery/jquery.js" defer="defer"></script>
+        
+        <script src="../js/options.js" defer="defer"></script>
+    </head>
+    <body>
+        <header>
+            <h1>CloudWatcher Options</h1>
+        </header>
+        <form id="options">
+            <div>
+                <label>AWS Access Key</label>
+                <input id="aws_access_key" name="aws_access_key" type="text" value="" class="stored" />
+            </div>
+            <div>
+                <label>AWS Secret Key</label>
+                <input id="aws_secret_key" name="aws_secret_key" type="text" value="" class="stored" />
+            </div>
+            <div>
+                <input type="submit" value="Save" />
+            </div>
+        </form>
+        <p id="status"></p>
+    </body>
+</html>

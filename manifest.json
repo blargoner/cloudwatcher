@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+
+    "name": "CloudWatcher",
+    "description": "Amazon CloudWatch client.",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_title": "CloudWatcher",
+        "default_popup": "html/popup.html"
+    },
+
+    "options_page": "html/options.html",
+
+    "permissions": [
+        "https://monitoring.amazonaws.com/"
+    ]
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>CloudWatcher</title>
+        <!-- css -->
+        <link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts-base-min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/popup.css" />
+        <!-- cloudwatch -->
+        <script src="../lib/aws/util/sha1.js" defer="defer"></script>
+        <script src="../lib/aws/util/signer.js" defer="defer"></script>
+        <script src="../lib/aws/util/parametrizer.js" defer="defer"></script>
+        <script src="../lib/aws/util/parser.js" defer="defer"></script>
+        <script src="../lib/aws/cloudwatch.js" defer="defer"></script>
+        <!-- jquery -->
+        <script src="../lib/jquery/jquery.js" defer="defer"></script>
+        <!-- backbone -->
+        <script src="../lib/underscore/underscore.js" defer="defer"></script>
+        <script src="../lib/backbone/backbone.js" defer="defer"></script>
+        <!-- handlebars -->
+        <script src="../lib/handlebars/handlebars.runtime.js" defer="defer"></script>
+
+        <script src="../js/models/base.js" defer="defer"></script>
+        <script src="../js/models/metrics.js" defer="defer"></script>
+        <script src="../js/views/templates/metrics.js" defer="defer"></script>
+        <script src="../js/views/metrics.js" defer="defer"></script>
+        <script src="../js/popup.js" defer="defer"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Amazon CloudWatch Metrics</h1>
+        </header>
+        <div id="metrics"></div>
+    </body>
+</html>

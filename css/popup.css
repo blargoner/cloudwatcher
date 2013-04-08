@@ -1,0 +1,14 @@
+html {
+    width:640px;
+}
+body {
+    padding:1em;
+}
+#metrics {
+    width:100%;
+    height:480px;
+    overflow:auto;
+}
+#metrics .metrics {
+    width:100%;
+}
