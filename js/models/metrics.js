@@ -50,17 +50,13 @@
             return metric.get('Category') + ':' + metric.get('MetricName');
         },
 
-        toCategorizedJSON: function() {
-            var grouped = this.groupBy('Category');
-            return {
-                Categories: Object.keys(grouped).sort().map(function(c) {
-                    return {
-                        Name: c,
-                        Dimensions: c.split(':').slice(1),
-                        Metrics: grouped[c].map(function(m) { return m.toJSON(); })
-                    };
-                })
-            };
+        categories: function() {
+            return _.uniq(this.pluck('Category'), true).map(function(c) {
+                return {
+                    Name: c,
+                    Dimensions: c.split(':').slice(1)
+                }
+            });
         }
     });
 

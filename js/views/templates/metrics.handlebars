@@ -1,5 +1,5 @@
 {{#each Categories}}
-    <section>
+    <section class="category" data-category="{{Name}}">
         <header>
             <h2>{{Name}}</h2>
         </header>
@@ -12,16 +12,7 @@
                     <th>Name</th>
                 </tr>
             </thead>
-            <tbody>
-                {{#each Metrics}}
-                    <tr>
-                        {{#each Dimensions}}
-                            <td>{{Value}}</td>
-                        {{/each}}
-                        <td>{{MetricName}}</td>
-                    </tr>
-                {{/each}}
-            </tbody>
+            <tbody></tbody>
         </table>
     </section>
 {{/each}}
