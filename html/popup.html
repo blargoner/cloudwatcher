@@ -19,11 +19,16 @@
         <script src="../lib/backbone/backbone.js" defer="defer"></script>
         <!-- handlebars -->
         <script src="../lib/handlebars/handlebars.runtime.js" defer="defer"></script>
+        <!-- flot -->
+        <script src="../lib/flot/jquery.flot.js" defer="defer"></script>
 
         <script src="../js/models/base.js" defer="defer"></script>
+        <script src="../js/models/statistics.js" defer="defer"></script>
         <script src="../js/models/metrics.js" defer="defer"></script>
         <script src="../js/views/templates/metric.js" defer="defer"></script>
         <script src="../js/views/templates/metrics.js" defer="defer"></script>
+        <script src="../js/views/templates/plotter.js" defer="defer"></script>
+        <script src="../js/views/base.js" defer="defer"></script>
         <script src="../js/views/metrics.js" defer="defer"></script>
         <script src="../js/popup.js" defer="defer"></script>
     </head>
@@ -31,6 +36,7 @@
         <header>
             <h1>Amazon CloudWatch Metrics</h1>
         </header>
-        <div id="metrics"></div>
+        <section id="metrics"></section>
+        <section id="plotter"></section>
     </body>
 </html>

@@ -1,7 +1,15 @@
 (function() {
-    var Metric = Backbone.Model.extend({
+    var Metric = CloudWatcher.Model.extend({
+        defaults: {
+            Watched: false
+        },
+
         initialize: function() {
             this.set('Category', this.category());
+
+            this.statistics = this.createStatistics();
+            this.statistics.setMetric(this);
+            this.statistics.on('sync', this.onSyncStatistics, this);
         },
 
         category: function() {
@@ -9,20 +17,53 @@
                 dimensions = this.get('Dimensions') || [];
 
             return namespace + ':' + dimensions.map(function(d) { return d.Name; }).join(':');
+        },
+
+        watched: function() {
+            return this.get('Watched');
+        },
+
+        watch: function() {
+            this.set('Watched', true);
+            return this;
+        },
+
+        unwatch: function() {
+            this.set('Watched', false);
+            return this;
+        },
+
+        createStatistics: function() {
+            return new CloudWatcher.Statistics();
+        },
+
+        getStatistics: function() {
+            return this.statistics;
+        },
+
+        fetchStatistics: function(startTime, endTime, period, statistic) {
+            this.statistics.set({
+                StartTime: startTime,
+                EndTime: endTime,
+                Period: period,
+                Statistic: statistic
+            });
+
+            this.statistics.fetch();
+
+            return this;
+        },
+
+        onSyncStatistics: function() {
+            this.trigger('sync:statistics');
         }
     });
 
-    var Metrics = Backbone.Collection.extend({
+    var Metrics = CloudWatcher.Collection.extend({
         model: Metric,
 
         sync: function(method, collection, options) {
-            var awsAccessKey = localStorage['aws_access_key'],
-                awsSecretKey = localStorage['aws_secret_key'],
-                client = new AWSCloudWatchClient(awsAccessKey, awsSecretKey);
-
-            if(!awsAccessKey || !awsSecretKey) {
-                throw new Error('CloudWatcher.Metrics.sync() requires AWS credentials.');
-            }
+            var client = CloudWatcher.createClient();
 
             if(method !== 'read') {
                 throw new Error('CloudWatcher.Metrics.sync() only supports read.');
@@ -57,6 +98,10 @@
                     Dimensions: c.split(':').slice(1)
                 }
             });
+        },
+
+        watched: function() {
+            return this.where({ Watched: true });
         }
     });
 
