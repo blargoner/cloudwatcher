@@ -16,7 +16,7 @@
             var namespace = this.get('Namespace'),
                 dimensions = this.get('Dimensions') || [];
 
-            return namespace + ':' + dimensions.map(function(d) { return d.Name; }).join(':');
+            return [namespace].concat(dimensions.map(function(d) { return d.Name; })).join(':');
         },
 
         watched: function() {
@@ -92,7 +92,7 @@
         },
 
         categories: function() {
-            return _.uniq(this.pluck('Category'), true).map(function(c) {
+            return _.uniq(this.pluck('Category')).map(function(c) {
                 return {
                     Name: c,
                     Dimensions: c.split(':').slice(1)
