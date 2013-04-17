@@ -23,13 +23,8 @@
             return this.get('Watched');
         },
 
-        watch: function() {
-            this.set('Watched', true);
-            return this;
-        },
-
-        unwatch: function() {
-            this.set('Watched', false);
+        watch: function(value) {
+            this.set('Watched', value);
             return this;
         },
 

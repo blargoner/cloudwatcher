@@ -5,7 +5,7 @@
         template: Handlebars.templates.metric,
 
         events: {
-            'click .metric': 'click'
+            'click .watch': 'click'
         },
 
         render: function() {
@@ -14,9 +14,7 @@
         },
 
         click: function(e) {
-            e.preventDefault();
-            // TODO
-            this.model.watch();
+            this.model.watch(e.target.checked);
         }
     });
 
@@ -55,32 +53,60 @@
     var MetricsPlotterView = CloudWatcher.View.extend({
         template: Handlebars.templates.plotter,
 
+        events: {
+            'change #settings select': 'change'
+        },
+
         initialize: function() {
+            this.range = MetricsPlotterView.DefaultRange;
+            this.period = MetricsPlotterView.DefaultPeriod;
+            this.statistic = MetricsPlotterView.DefaultStatistic;
+            
             this.listenTo(this.collection, 'change:Watched', this.watch);
             this.listenTo(this.collection, 'sync:statistics', this.render);
         },
 
         watch: function(metric, watched) {
             if(watched) {
-                // TODO: just testing, fetching averages over 5 minute periods for last 24 hours
-                var now = Date.now();
-                metric.fetchStatistics(
-                    now - 24 * 60 * 60 * 1000,
-                    now,
-                    5 * 60,
-                    CloudWatcher.Statistics.AVERAGE
-                );
+                this.fetch(metric);
+            }
+            else {
+                this.render();
             }
         },
 
-        render: function() {
-            var sequences = this.collection.watched().map(function(m) {
-                return m.getStatistics().sequence();
+        fetch: function(metric) {
+            var now = Date.now();
+            metric.fetchStatistics(
+                now - this.range,
+                now,
+                this.period,
+                this.statistic
+            );
+            return this;
+        },
+
+        fetchAll: function() {
+            var that = this;
+            this.collection.watched().forEach(function(m) {
+                that.fetch(m);
             });
+            return this;
+        },
 
-            this.$el.html(this.template());
+        render: function() {
+            var $el = this.$el,
+                sequences = this.collection.watched().map(function(m) {
+                    return m.getStatistics().sequence();
+                });
 
-            $.plot(this.$el.find('#plot'), sequences, {
+            $el.html(this.template());
+
+            $el.find('#range').val(this.range);
+            $el.find('#period').val(this.period);
+            $el.find('#statistic').val(this.statistic);
+
+            $.plot($el.find('#plot'), sequences, {
                 xaxis: {
                     mode: 'time',
                     timezone: 'UTC'
@@ -88,8 +114,20 @@
             });
 
             return this;
+        },
+        
+        change: function() {
+            var $el = this.$el;
+            this.range = parseInt($el.find('#range').val(), 10);
+            this.period = parseInt($el.find('#period').val(), 10);
+            this.statistic = $el.find('#statistic').val();
+            this.fetchAll();
         }
     });
+    
+    MetricsPlotterView.DefaultRange = 86400000;
+    MetricsPlotterView.DefaultPeriod = 300;
+    MetricsPlotterView.DefaultStatistic = CloudWatcher.Statistics.AVERAGE;
 
     (typeof CloudWatcher === 'undefined') && (CloudWatcher = {});
 
