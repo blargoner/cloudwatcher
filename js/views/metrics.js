@@ -94,24 +94,27 @@
             return this;
         },
 
+        sequences: function() {
+            return this.collection.watched().map(function(m) {
+                return {
+                    data: m.getStatistics().sequence(),
+                    label: m.get('MetricName'),
+                    color: parseInt(m.cid.slice(1), 10)
+                };
+            });
+        },
+
         render: function() {
             var $el = this.$el,
-                sequences = this.collection.watched().map(function(m) {
-                    return m.getStatistics().sequence();
-                });
-
+                sequences = this.sequences();
+                
             $el.html(this.template());
 
             $el.find('#range').val(this.range);
             $el.find('#period').val(this.period);
             $el.find('#statistic').val(this.statistic);
 
-            $.plot($el.find('#plot'), sequences, {
-                xaxis: {
-                    mode: 'time',
-                    timezone: 'UTC'
-                }
-            });
+            $.plot($el.find('#plot'), sequences, MetricsPlotterView.PlotOptions);
 
             return this;
         },
@@ -128,6 +131,28 @@
     MetricsPlotterView.DefaultRange = 86400000;
     MetricsPlotterView.DefaultPeriod = 300;
     MetricsPlotterView.DefaultStatistic = CloudWatcher.Statistics.AVERAGE;
+
+    MetricsPlotterView.PlotOptions = {
+        grid: {
+            borderWidth: 0,
+            color: '#7f7f7f'
+        },
+        xaxis: {
+            mode: 'time',
+            timezone: 'UTC',
+            tickColor: '#efefef'
+        },
+        yaxis: {
+            tickColor: '#efefef'
+        },
+        lines: {
+            shadowSize: 0
+        },
+        legend: {
+            position: 'sw',
+            labelBoxBorderColor: '#7f7f7f'
+        }
+    };
 
     (typeof CloudWatcher === 'undefined') && (CloudWatcher = {});
 
