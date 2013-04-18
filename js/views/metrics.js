@@ -21,6 +21,10 @@
     var MetricsView = CloudWatcher.View.extend({
         template: Handlebars.templates.metrics,
 
+        events: {
+            'click #refreshmetrics': 'refresh'
+        },
+
         initialize: function() {
             this.listenTo(this.collection, 'sync', this.render);
         },
@@ -45,6 +49,10 @@
             return this;
         },
 
+        refresh: function(e) {
+            this.collection.fetch();
+        },
+
         categorySelector: function(metric) {
             return '.category[data-category="' + metric.get('Category') + '"]';
         }
@@ -54,7 +62,8 @@
         template: Handlebars.templates.plotter,
 
         events: {
-            'change #settings select': 'change'
+            'change .setting': 'change',
+            'click #refreshstatistics': 'refresh'
         },
 
         initialize: function() {
@@ -63,6 +72,7 @@
             this.statistic = MetricsPlotterView.DefaultStatistic;
             
             this.listenTo(this.collection, 'change:Watched', this.watch);
+            this.listenTo(this.collection, 'sync', this.render);
             this.listenTo(this.collection, 'sync:statistics', this.render);
         },
 
@@ -119,11 +129,15 @@
             return this;
         },
         
-        change: function() {
+        change: function(e) {
             var $el = this.$el;
             this.range = parseInt($el.find('#range').val(), 10);
             this.period = parseInt($el.find('#period').val(), 10);
             this.statistic = $el.find('#statistic').val();
+            this.fetchAll();
+        },
+
+        refresh: function(e) {
             this.fetchAll();
         }
     });
