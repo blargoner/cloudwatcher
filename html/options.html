@@ -17,17 +17,17 @@
         </header>
         <form id="options">
             <div>
-                <label>AWS Access Key</label>
+                <label for="aws_access_key">AWS Access Key</label>
                 <input id="aws_access_key" name="aws_access_key" type="text" value="" class="stored" />
             </div>
             <div>
-                <label>AWS Secret Key</label>
+                <label for="aws_secret_key">AWS Secret Key</label>
                 <input id="aws_secret_key" name="aws_secret_key" type="text" value="" class="stored" />
             </div>
             <div>
-                <input type="submit" value="Save" />
+                <button>Save</button>
+                <span id="status"></span>
             </div>
         </form>
-        <p id="status"></p>
     </body>
 </html>

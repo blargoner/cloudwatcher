@@ -1,0 +1,33 @@
+body {
+    padding:1em;
+}
+h1 {
+    margin:0.5em 0;
+    padding-left:40px;
+    background:url('../img/icon.png') no-repeat;
+    line-height:33px;
+}
+label {
+    display:inline-block;
+    width:10em;
+    margin:0 0.5em 0.5em 0;
+    text-align:right;
+    font-weight:bold;
+}
+input[type="text"] {
+    width:30em;
+    font-family:'Courier New', monospace;
+}
+button {
+    margin:0.5em;
+    border:1px solid #b9b8b6;
+    border-radius:3px;
+    padding:0.25em 0.5em;
+    background:linear-gradient(#fff,#dbdbdc);
+    color:#3a3a3a;
+    cursor:pointer;
+}
+button:active {
+    background:linear-gradient(#dbdbdc,#fff);
+}
+
