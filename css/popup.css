@@ -7,6 +7,9 @@ body {
 }
 h1 {
     margin:0.5em 0;
+    padding-left:40px;
+    background:url('../img/icon.png') no-repeat;
+    line-height:33px;
 }
 button {
     margin:0.5em;
@@ -44,6 +47,7 @@ button:active {
     border:1px solid #b9b8b6;
     background:linear-gradient(#fff,#dbdbdc);
     color:#3a3a3a;
+    text-align:left;
 }
 #metrics .metrics th:first-child {
     width:20px;
