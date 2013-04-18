@@ -1,2 +1,8 @@
 Amazon CloudWatch Google Chrome Extension
 Copyright (c) 2013 John Peloquin. All rights reserved.
+
+Usage:
+
+1. Install extension.
+2. Set your AWS credentials in the options page.
+3. Enjoy!
