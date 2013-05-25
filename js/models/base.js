@@ -22,13 +22,14 @@
 
     CloudWatcher.createClient = function() {
         var awsAccessKey = localStorage['aws_access_key'],
-            awsSecretKey = localStorage['aws_secret_key'];
+            awsSecretKey = localStorage['aws_secret_key'],
+            awsRegion    = localStorage['aws_region'];
 
         if(!awsAccessKey || !awsSecretKey) {
             throw new Error('CloudWatcher.createClient() requires AWS credentials.');
         }
 
-        return new AWSCloudWatchClient(awsAccessKey, awsSecretKey);
+        return new AWSCloudWatchClient(awsAccessKey, awsSecretKey, awsRegion);
     };
 
     CloudWatcher.Model = Model;
