@@ -3,7 +3,7 @@
 
     "name": "CloudWatcher",
     "description": "Amazon CloudWatch client.",
-    "version": "1.0",
+    "version": "1.1",
 
     "browser_action": {
         "default_icon": "img/icon.png",
